@@ -5,7 +5,7 @@ function EmptyTile(puzzle,x,y) {
 
     this.show = function() {
         push();
-        fill(255,0,0);
+        fill(emptyColor);
         noStroke();
         rect(0,0,this.puzzle.tileWidth,this.puzzle.tileHeight);
         pop();
