@@ -34,6 +34,7 @@ function Puzzle(art,x,y,w,h,c,r,b,g) {
         push();
         translate(this.position.x,this.position.y);
         fill(this.backgroundColor);
+        noStroke();
         rect(0,0,this.width,this.height);
         for (let i = 0; i < this.tiles.length; i++) {
             push();
