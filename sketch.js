@@ -2,7 +2,7 @@ let gridCols = 10;
 let gridRows = 10;
 let gridCellWidth, gridCellHeight;
 let puzzle;
-let puzzleSize = 440;
+let puzzleSize = 520;
 let palette;
 let bgColor, gridColor, emptyColor, tintColor, puzzleColor;
 
@@ -18,7 +18,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(500,707);
+    createCanvas(600,850);
 
     let p1 = [color("#77D48A"),color("#F85E58"),color("#3562E8"),color("#F8C552")];
     let p2 = [color("#D0506A"),color("#60532D"),color("#D83B32"),color("#F8883E")];
@@ -31,7 +31,7 @@ function setup() {
     emptyColor = palette.splice(floor(random(palette.length)),1)[0];
     puzzleColor = palette.splice(floor(random(palette.length)),1)[0];
     
-    puzzle = new Puzzle(art,30,200,puzzleSize,puzzleSize,4,4,bgColor,null);
+    puzzle = new Puzzle(art,(width-puzzleSize)/2,height-((width-puzzleSize)/2)-puzzleSize,puzzleSize,puzzleSize,4,4,bgColor,null);
     puzzle.shuffle();    
 
 
@@ -41,27 +41,28 @@ function draw() {
     background(bgColor);
 
     if (state == ORNAMENTS) {
-        // let gridWidth = floor(puzzleSize/gridCols);
-        // let gridHeight = floor(puzzleSize/gridRows);
-        let gridWidth = 44;
-        let gridHeight = 44;
+        let gridWidth = floor(puzzleSize/gridCols);
+        let gridHeight = floor(puzzleSize/gridRows);
 
         push();
-        translate(27,200);
+        translate((width-puzzleSize)/2,height-((width-puzzleSize)/2)-puzzleSize);
         imageMode(CENTER);
+        let k = 0;
         for (let i = 0; i < gridCols; i++) {
             for (let j = 0; j < gridRows; j++) {
                 push();
-                translate(i*gridWidth+gridWidth/2,j*gridHeight+gridHeight/2);
-                if (i%2 != 0) scale(-1,1);;
-                if (j%2 != 0) scale(1,-1);
+                translate(j*gridWidth+gridWidth/2,i*gridHeight+gridHeight/2);
+                rotate(radians((k%4)*90));
+                // if (i%2 != 0) scale(-1,1);;
+                // if (j%2 != 0) scale(1,-1);
                 image(ornament,0,0,gridWidth,gridHeight);
                 pop();
+                k++;
             }
         }
         pop();
     } else if (state == FULL_IMAGE) {
-        image(puzzle.art,30,200);
+        image(puzzle.art,(width-puzzleSize)/2,height-((width-puzzleSize)/2)-puzzleSize);
     } else if (state == PUZZLE) {
         puzzle.show();
     }
