@@ -86,8 +86,15 @@ function draw() {
         let gridWidth = floor(puzzleSize/gridCols);
         let gridHeight = floor(puzzleSize/gridRows);
         push();
+        translate((width-puzzleSize)/2+puzzleSize/2,240+puzzleSize/2);
+        imageMode(CENTER);
+        let angle = 360;
+        for (let l = 0; l < 360; l+=angle) {
+            image(puzzle.art,0,0);
+            rotate(radians(angle));
+        }
+        pop();
         translate((width-puzzleSize)/2,240);
-        image(puzzle.art,0,0);
         let k = 0;
         for (let i = 0; i < gridCols; i++) {
             for (let j = 0; j < gridRows; j++) {
@@ -105,7 +112,6 @@ function draw() {
                 k++;
             }
         }
-        pop();
     } else if (state == PUZZLE) {
         puzzle.show();
     }
@@ -116,6 +122,7 @@ function draw() {
 
 function mouseClicked() {
     if (state == ORNAMENTS || state == FULL_IMAGE) {
+        infoIndex = floor(random(gridCols*gridRows));
         state++;
     }
     if (state == PUZZLE) {
