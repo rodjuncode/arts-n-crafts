@@ -19,7 +19,7 @@ function Puzzle(art,x,y,w,h,c,r,b,g) {
     let k = 0;
     for (let i = 0; i < this.cols; i++) {
         for (let j = 0; j < this.rows; j++) {
-            if (i == emptyI && j == emptyJ) {
+            if (i == emptyI && j == emptyJ) {                
                 let emptyTile = new EmptyTile(this,j,i);
                 this.tiles.push(emptyTile);
                 this.emptyTileIndex = k;
