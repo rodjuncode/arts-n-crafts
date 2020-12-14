@@ -21,7 +21,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(windowHeight*0.95/1.4,windowHeight*0.95);
+    createCanvas(640,900);
 
     let p1 = [color("#77D48A"),color("#F85E58"),color("#3562E8"),color("#F8C552")];
     let p2 = [color("#D0506A"),color("#60532D"),color("#D83B32"),color("#F8883E")];
@@ -34,7 +34,7 @@ function setup() {
     emptyColor = palette.splice(floor(random(palette.length)),1)[0];
     puzzleColor = palette.splice(floor(random(palette.length)),1)[0];
     
-    puzzle = new Puzzle(art,(width-puzzleSize)/2,(width-puzzleSize)/2*6,puzzleSize,puzzleSize,4,4,bgColor,null);
+    puzzle = new Puzzle(art,(width-puzzleSize)/2,(width-puzzleSize)/2*12,puzzleSize,puzzleSize,4,4,bgColor,null);
     puzzle.shuffle();    
 
 
@@ -44,13 +44,13 @@ function draw() {
     background(bgColor);
 
     header.resize(puzzleSize,0);
-    image(header,(width-puzzleSize)/2,(width-puzzleSize)/2*2);
+    image(header,(width-puzzleSize)/2,(width-puzzleSize)/2*4);
 
     if (state == ORNAMENTS) {
         let gridWidth = floor(puzzleSize/gridCols);
         let gridHeight = floor(puzzleSize/gridRows);
         push();
-        translate((width-puzzleSize)/2,(width-puzzleSize)/2*6);
+        translate((width-puzzleSize)/2,(width-puzzleSize)/2*12);
         imageMode(CENTER);
         let k = 0;
         for (let i = 0; i < gridCols; i++) {
@@ -76,7 +76,7 @@ function draw() {
         }
         pop();
     } else if (state == FULL_IMAGE) {
-        image(puzzle.art,(width-puzzleSize)/2,(width-puzzleSize)/2*6);
+        image(puzzle.art,(width-puzzleSize)/2,(width-puzzleSize)/2*12);
     } else if (state == PUZZLE) {
         puzzle.show();
     }
