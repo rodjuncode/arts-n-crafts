@@ -1,5 +1,6 @@
-function Puzzle(art,w,h,c,r) {
+function Puzzle(art,x,y,w,h,c,r,b,g) {
     this.art = art;
+    this.position = createVector(x,y);
     this.width = w;
     this.height = h;
     this.cols = c;
@@ -7,6 +8,10 @@ function Puzzle(art,w,h,c,r) {
     this.tiles = [];
     this.tileWidth = floor(this.width/this.cols);
     this.tileHeight = floor(this.height/this.rows);
+    this.backgroundColor = b;
+    this.gridColor = g;
+
+    this.art.resize(this.width,0);
 
     let emptyI = floor(random(this.cols));
     let emptyJ = floor(random(this.rows));
@@ -26,12 +31,26 @@ function Puzzle(art,w,h,c,r) {
     }
 
     this.show = function() {
+        push();
+        translate(this.position.x,this.position.y);
+        fill(this.backgroundColor);
+        rect(0,0,this.width,this.height);
         for (let i = 0; i < this.tiles.length; i++) {
             push();
             translate((i%this.cols)*this.tileWidth,floor(i/this.rows)*this.tileHeight);
             this.tiles[i].show();
             pop();
         }
+        if (this.gridColor != null) {
+            noFill();
+            stroke(this.gridColor);
+            for (let i = 0; i < gridCols; i++) {
+                for (let j = 0; j < gridRows; j++) {
+                    rect(i*this.tileWidth,j*this.tileHeight,this.tileWidth,this.tileHeight);        
+                }
+            }        
+        }   
+        pop();        
     }
 
     this.click = function(x,y) {
@@ -52,7 +71,6 @@ function Puzzle(art,w,h,c,r) {
             let tilePosition = this.getTilePosition(adjacentTiles[i]);
             if ((x >= tilePosition.x && x <= tilePosition.x + this.tileWidth) &&
                 (y >= tilePosition.y && y <= tilePosition.y + this.tileHeight)) {
-                console.log("clicked");
                     let emptyTile  = this.tiles[this.emptyTileIndex];
                     let filledTile = this.tiles[adjacentTiles[i]];  
                     this.tiles[adjacentTiles[i]] = emptyTile;
@@ -64,7 +82,7 @@ function Puzzle(art,w,h,c,r) {
     }    
 
     this.getTilePosition = function(i) {
-        return createVector((i%this.cols)*this.tileWidth,floor(i/this.rows)*this.tileHeight);
+        return createVector((i%this.cols)*this.tileWidth+this.position.x,floor(i/this.rows)*this.tileHeight+this.position.y);
     }
 
     this.getTile = function(x,y) { 

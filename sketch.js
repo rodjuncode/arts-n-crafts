@@ -3,50 +3,35 @@ let gridRows = 4;
 let gridCellWidth, gridCellHeight;
 let puzzle;
 let palette;
-let bgColor;
-let gridColor;
-let emptyColor;
-let tintColor;
+let bgColor, gridColor, emptyColor, tintColor, puzzleColor;
 
 function preload() {
     art = loadImage('assets/milho.png');
 }
 
 function setup() {
-    createCanvas(1000,1000);
-    palette = [color("#77D48A"),color("#F85E58"),color("#3562E8"),color("#F8C552")];
-    gridCellWidth = floor(width/gridCols);
-    gridCellHeight = floor(height/gridRows);
-    puzzle = new Puzzle(art,width,height,gridCols,gridRows);
-    puzzle.shuffle();    
+    createCanvas(500,707);
 
+    let p1 = [color("#77D48A"),color("#F85E58"),color("#3562E8"),color("#F8C552")];
+    let p2 = [color("#D0506A"),color("#60532D"),color("#D83B32"),color("#F8883E")];
+    let p3 = [color("#3562E8"),color("#9AA026"),color("#D83B32"),color("#F8C552")];
+    let p4 = [color("#236390"),color("#77D48A"),color("#C09A86"),color("#F8C552")];            
+    palette = p2;
     bgColor = palette.splice(floor(random(palette.length)),1)[0];
     gridColor = palette.splice(floor(random(palette.length)),1)[0];
     emptyColor = palette.splice(floor(random(palette.length)),1)[0];
-    tintColor = palette.splice(floor(random(palette.length)),1)[0];
+    puzzleColor = palette.splice(floor(random(palette.length)),1)[0];
+    
+    puzzle = new Puzzle(art,30,207,440,440,gridCols,gridRows,bgColor,gridColor);
+    puzzle.shuffle();    
+
 
 }
 
 function draw() {
     background(bgColor);
 
-    stroke(gridColor);
-    strokeWeight(0.5);
-    noFill();
     puzzle.show();
-
-
-
-    for (let i = 0; i < gridCols; i++) {
-        for (let j = 0; j < gridRows; j++) {
-            // image(art, i*gridCellWidth, j*gridCellHeight, 
-            //     gridCellWidth, gridCellHeight, 
-            //     i*gridCellWidth, j*gridCellHeight, 
-            //     gridCellWidth, gridCellHeight);            
-            rect(i*gridCellWidth,j*gridCellHeight,gridCellWidth,gridCellHeight);        
-        }
-    }
-
 
 }
 
