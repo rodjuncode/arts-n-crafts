@@ -1,5 +1,6 @@
 html, body {
-    background: rgb(240,240,240);
+    
+    background: #476ab1;
     margin: 0;
     padding: 10px;
   }
@@ -10,6 +11,7 @@ canvas {
 }
 
 .expo {
+  color: white;
   display: block;
   font-family: ltc-goudy-oldstyle-pro, serif;
   font-weight: 400;
@@ -18,5 +20,9 @@ canvas {
   margin: 0  auto 20px auto;
   text-align: center;
   width: 600px;
+}
+
+.expo a {
+  color: #e94a2b;
 }
   
