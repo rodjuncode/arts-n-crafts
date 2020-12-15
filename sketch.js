@@ -6,7 +6,7 @@ let puzzle;
 let puzzleSize = 600;
 let palette;
 let bgColor, gridColor, emptyColor, tintColor, puzzleColor;
-let illustrationPos = 145;
+let illustrationPos = 150;
 
 let infoIndex;
 
