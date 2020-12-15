@@ -124,8 +124,8 @@ function draw() {
         puzzle.show();
     }
 
-    footer.resize(260,0);
-    image(footer,25,header.height+puzzleSize+(width-puzzleSize)*1.2);
+    footer.resize(270,0);
+    image(footer,25,header.height+puzzleSize+(width-puzzleSize));
 
 
 
