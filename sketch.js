@@ -25,7 +25,8 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(640,900);
+    let c = createCanvas(640,900);
+    c.mousePressed(changeState);
 
     let p1 = [color("#77D48A"),color("#F85E58"),color("#3562E8"),color("#F8C552")];
     let p2 = [color("#D0506A"),color("#60532D"),color("#D83B32"),color("#F8883E")];
@@ -42,6 +43,9 @@ function setup() {
     puzzle.shuffle();    
 
     infoIndex = floor(random(gridCols*gridRows));
+
+    let downloadLink = select(".expo a");
+    downloadLink.mousePressed(savePoster);
 
 }
 
@@ -131,7 +135,7 @@ function draw() {
 
 }
 
-function mouseClicked() {
+function changeState() {
     if (state == ORNAMENTS || state == FULL_IMAGE) {
         infoIndex = floor(random(gridCols*gridRows));
         state++;
@@ -141,6 +145,6 @@ function mouseClicked() {
     }
 }
 
-function doubleClicked() {
+function savePoster() {
     save("arts-crafts-generativo.png");
 }
