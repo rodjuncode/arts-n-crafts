@@ -6,6 +6,7 @@ let puzzle;
 let puzzleSize = 600;
 let palette;
 let bgColor, gridColor, emptyColor, tintColor, puzzleColor;
+let illustrationPos = 145;
 
 let infoIndex;
 
@@ -16,10 +17,10 @@ const PUZZLE = 3;
 let state = ORNAMENTS;
 
 function preload() {
-    art = loadImage('assets/milho.png');
-    ornament = loadImage('assets/ornamento.png');
-    info = loadImage('assets/info.png');
-    header = loadImage('assets/header.png');
+    art = loadImage('assets/yellow/milho.png');
+    ornament = loadImage('assets/yellow/ornamento.png');
+    info = loadImage('assets/yellow/info.png');
+    header = loadImage('assets/yellow/header.png');
 }
 
 function setup() {
@@ -36,7 +37,7 @@ function setup() {
     emptyColor = palette.splice(floor(random(palette.length)),1)[0];
     puzzleColor = palette.splice(floor(random(palette.length)),1)[0];
 
-    puzzle = new Puzzle(art,(width-puzzleSize)/2,240,puzzleSize,puzzleSize,4,4,bgColor,null);
+    puzzle = new Puzzle(art,(width-puzzleSize)/2,illustrationPos,puzzleSize,puzzleSize,4,4,bgColor,null);
     puzzle.shuffle();    
 
     infoIndex = floor(random(gridCols*gridRows));
@@ -47,13 +48,13 @@ function draw() {
     background(bgColor);
 
     header.resize(puzzleSize,0);
-    image(header,(width-puzzleSize)/2,80);
+    image(header,(width-puzzleSize)/2,23);
 
     if (state == ORNAMENTS) {
         let gridWidth = floor(puzzleSize/gridCols);
         let gridHeight = floor(puzzleSize/gridRows);
         push();
-        translate((width-puzzleSize)/2,240);
+        translate((width-puzzleSize)/2,illustrationPos);
         imageMode(CENTER);
         let k = 0;
         for (let i = 0; i < gridCols; i++) {
@@ -86,22 +87,22 @@ function draw() {
         let gridWidth = floor(puzzleSize/gridCols);
         let gridHeight = floor(puzzleSize/gridRows);
         push();
-        translate((width-puzzleSize)/2+puzzleSize/2,240+puzzleSize/2);
+        translate((width-puzzleSize)/2+puzzleSize/2,illustrationPos+puzzleSize/2);
         imageMode(CENTER);
-        let angle = 360;
+        let angle = 180;
         for (let l = 0; l < 360; l+=angle) {
             image(puzzle.art,0,0);
             rotate(radians(angle));
         }
         pop();
-        translate((width-puzzleSize)/2,240);
+        translate((width-puzzleSize)/2,illustrationPos);
         let k = 0;
         for (let i = 0; i < gridCols; i++) {
             for (let j = 0; j < gridRows; j++) {
                 if (k == infoIndex) {
                     push();
                     translate(j*gridWidth+gridWidth/2,i*gridHeight+gridHeight/2);                    
-                    fill(255);
+                    fill(bgColor);
                     noStroke();
                     rectMode(CENTER);
                     imageMode(CENTER);
