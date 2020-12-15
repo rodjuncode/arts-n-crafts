@@ -141,8 +141,6 @@ function mouseClicked() {
     }
 }
 
-function keyTyped() {
-    if (key === 's') {
-        save("arts-crafts-generativo.png");
-    }
+function doubleClicked() {
+    save("arts-crafts-generativo.png");
 }
