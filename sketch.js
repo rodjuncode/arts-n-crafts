@@ -1,4 +1,4 @@
-let art, ornament, info, header;
+let art, ornament, info, header, footer;
 let gridCols = 4;
 let gridRows = 4;
 let gridCellWidth, gridCellHeight;
@@ -6,7 +6,7 @@ let puzzle;
 let puzzleSize = 600;
 let palette;
 let bgColor, gridColor, emptyColor, tintColor, puzzleColor;
-let illustrationPos = 150;
+let illustrationPos = 140;
 
 let infoIndex;
 
@@ -19,8 +19,9 @@ let state = ORNAMENTS;
 function preload() {
     art = loadImage('assets/milho.png');
     ornament = loadImage('assets/ornamento.png');
-    info = loadImage('assets/info.png');
+    info = loadImage('assets/info-azul.png');
     header = loadImage('assets/header.png');
+    footer = loadImage('assets/realizacao.png');
 }
 
 function setup() {
@@ -35,9 +36,9 @@ function setup() {
     bgColor = color(255);
     gridColor = palette.splice(floor(random(palette.length)),1)[0];
     emptyColor = palette.splice(floor(random(palette.length)),1)[0];
-    puzzleColor = palette.splice(floor(random(palette.length)),1)[0];
+    puzzleColor = color("#e94929");
 
-    puzzle = new Puzzle(art,(width-puzzleSize)/2,illustrationPos,puzzleSize,puzzleSize,4,4,bgColor,null);
+    puzzle = new Puzzle(art,(width-puzzleSize)/2,illustrationPos,puzzleSize,puzzleSize,4,4,puzzleColor,null);
     puzzle.shuffle();    
 
     infoIndex = floor(random(gridCols*gridRows));
@@ -48,7 +49,7 @@ function draw() {
     background(bgColor);
 
     header.resize(puzzleSize,0);
-    image(header,(width-puzzleSize)/2,23);
+    image(header,(width-puzzleSize)/2,15);
 
     if (state == ORNAMENTS) {
         let gridWidth = floor(puzzleSize/gridCols);
@@ -88,13 +89,18 @@ function draw() {
         let gridHeight = floor(puzzleSize/gridRows);
         push();
         translate((width-puzzleSize)/2+puzzleSize/2,illustrationPos+puzzleSize/2);
+        noStroke();
+        //fill(puzzleColor);
+        rect(-puzzleSize/2,-puzzleSize/2,puzzleSize,puzzleSize);
         imageMode(CENTER);
         let angle = 360;
         for (let l = 0; l < 360; l+=angle) {
+            tint(puzzleColor);
             image(puzzle.art,0,0);
             rotate(radians(angle));
         }
         pop();
+        push();
         translate((width-puzzleSize)/2,illustrationPos);
         let k = 0;
         for (let i = 0; i < gridCols; i++) {
@@ -113,9 +119,13 @@ function draw() {
                 k++;
             }
         }
+        pop();
     } else if (state == PUZZLE) {
         puzzle.show();
     }
+
+    footer.resize(260,0);
+    image(footer,25,header.height+puzzleSize+(width-puzzleSize)*1.2);
 
 
 
@@ -128,5 +138,11 @@ function mouseClicked() {
     }
     if (state == PUZZLE) {
         puzzle.click(mouseX,mouseY);
+    }
+}
+
+function keyTyped() {
+    if (key === 's') {
+        save("arts-crafts-generativo.png");
     }
 }
