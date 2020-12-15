@@ -17,10 +17,10 @@ const PUZZLE = 3;
 let state = ORNAMENTS;
 
 function preload() {
-    art = loadImage('assets/yellow/milho.png');
-    ornament = loadImage('assets/yellow/ornamento.png');
-    info = loadImage('assets/yellow/info.png');
-    header = loadImage('assets/yellow/header.png');
+    art = loadImage('assets/milho.png');
+    ornament = loadImage('assets/ornamento.png');
+    info = loadImage('assets/info.png');
+    header = loadImage('assets/header.png');
 }
 
 function setup() {
@@ -89,7 +89,7 @@ function draw() {
         push();
         translate((width-puzzleSize)/2+puzzleSize/2,illustrationPos+puzzleSize/2);
         imageMode(CENTER);
-        let angle = 180;
+        let angle = 360;
         for (let l = 0; l < 360; l+=angle) {
             image(puzzle.art,0,0);
             rotate(radians(angle));
